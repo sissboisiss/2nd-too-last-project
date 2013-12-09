@@ -1,0 +1,45 @@
+difference(){cube([100,120,10],center=true);cube([75,100,20],center=true);translate([42.5,42.5,0])
+cylinder(10,5,5,center);
+translate([-42.5,42.5,0])
+cylinder(10,5,5,center);
+
+;}
+translate([42,-60,0])rotate([90,0,0])
+cylinder(10,5,5,center);
+translate([-42,-60,0])rotate([90,0,0])
+cylinder(10,5,5,center);
+//------------parameters---------------------------
+// overall size of X dimension
+gridX=75;  
+// overall size of Y dimension
+gridY=100;  
+// X border size
+borderX=1;  
+// Y border size
+borderY=1;  
+// width of solid part of grid
+meshSolid=7;
+// width of blank part of grid 
+meshSpace=12;  
+// thickness in Z direction
+thickness=10;  
+
+//-------------------------------------------------
+meshX=gridX-(borderX*2);
+meshY=gridY-(borderY*2);
+nX=meshX/(meshSolid+meshSpace);
+nY=meshY/(meshSolid+meshSpace);
+
+difference() {
+cube (size=[gridX,gridY,thickness], center = true);
+cube (size=[meshX,meshY,thickness],center = true);
+}
+
+for (i=[0:nX]) {
+                  translate([-(meshX/2)+i*(meshSolid+meshSpace),-meshY/2,-thickness/2]) cube(size=[meshSolid,meshY,thickness],center=false);
+}
+
+for (i=[0:nY]) {
+                 translate([-meshX/2,-(meshY/2)+i*(meshSolid+meshSpace),-thickness/2]) cube(size=[meshX,meshSolid,thickness],center=false);
+
+}
